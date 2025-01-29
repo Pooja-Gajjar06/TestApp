@@ -6,7 +6,6 @@ import { getApi } from "../src/services/apiServices";
 const { width } = Dimensions.get("window");
 
 const ITEM_WIDTH = width * 0.6;
-const ITEM_SPACING = (width - ITEM_WIDTH) / 3.5;
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
@@ -17,7 +16,6 @@ const HomeScreen = () => {
   const [rangePattern, setRangePattern] = useState([]);
   const [designOccasion, setDesignOccasion] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const scrollXY = useRef(new Animated.Value(0)).current; 
@@ -34,17 +32,14 @@ const HomeScreen = () => {
   }, []);
 
   const fetchRepositories = async () => {
-
     try {
       const data = await getApi("top_repository.json");
-      console.log("data of fetch-----", data?.main_sticky_menu);
-
       setData(data?.main_sticky_menu);
       if (data?.main_sticky_menu?.length > 0) {
         setSelectedMenu(data?.main_sticky_menu[0]);
       }
     } catch (err) {
-      setError(err.message || "Failed to fetch data");
+      console.log("error",err)
     } finally {
       setLoading(false);
     }
@@ -53,13 +48,12 @@ const HomeScreen = () => {
   const fetchCategories = async () => {
     try {
       const data = await getApi("middle_repository.json");
-      console.log("middle of fetch-----", data?.shop_by_category);
       setCategoriesData(data?.shop_by_category)
       setFabricData(data?.shop_by_fabric)
       setUnStichedData(data?.Unstitched)
       setBoutiqueCollectionData(data?.boutique_collection)
     } catch (err) {
-      setError(err.message || "Failed to fetch data");
+      console.log("error",err.message)
     } finally {
       setLoading(false);
     }
@@ -68,12 +62,10 @@ const HomeScreen = () => {
   const fetchRangePattern = async () => {
     try {
       const data = await getApi("bottom_repository.json");
-      console.log("bottom of fetch-----", data?.range_of_pattern);
       setRangePattern(data?.range_of_pattern)
       setDesignOccasion(data?.design_occasion)
-
     } catch (err) {
-      setError(err.message || "Failed to fetch data");
+      console.log("error",err.message)
     } finally {
       setLoading(false);
     }
@@ -111,6 +103,7 @@ const HomeScreen = () => {
               </TouchableOpacity>
             )}
           />
+
           {selectedMenu && (
             <FlatList
               data={selectedMenu.slider_images}
@@ -131,8 +124,6 @@ const HomeScreen = () => {
             />
           )}
 
-
-
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Shop By Category</Text>
           {categoriesData.length > 0 && (
             <FlatList
@@ -148,8 +139,6 @@ const HomeScreen = () => {
                 </TouchableOpacity>
               )}
             />)}
-
-
 
 
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Shop By Fabric Material</Text>
@@ -169,11 +158,7 @@ const HomeScreen = () => {
             />)}
 
 
-
-
-
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Unstitched</Text>
-
           <Animated.FlatList
             data={unStichedData}
             keyExtractor={(item) => item.id}
@@ -194,7 +179,7 @@ const HomeScreen = () => {
 
               const scale = scrollX.interpolate({
                 inputRange,
-                outputRange: [0.8, 1, 0.8], // Scale effect
+                outputRange: [0.8, 1, 0.8],
                 extrapolate: "clamp",
               });
 
@@ -239,12 +224,7 @@ const HomeScreen = () => {
           />
 
 
-
-
-
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Boutique Collection</Text>
-
-
           <FlatList
             data={boutiqueCollectionData}
             keyExtractor={(item, index) => index.toString()}
@@ -284,6 +264,7 @@ const HomeScreen = () => {
             })}
           </View>
 
+
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Range Of Pattern</Text>
           {rangePattern.length > 0 && (
             <FlatList
@@ -310,7 +291,6 @@ const HomeScreen = () => {
 
 
           <Text style={{ padding: 10, fontSize: 18, color: '#7a7d50' }}>Design As Per Occasion</Text>
-
           {designOccasion.length > 0 && (
             <FlatList
               data={designOccasion}
@@ -337,6 +317,8 @@ const HomeScreen = () => {
     </ScrollView>
   );
 }
+
+
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: '#fff',

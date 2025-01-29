@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, FlatList, TouchableOpacity,ActivityIndicator } from "react-native";
 import BackHeader from "./components/BackHeader";
 import { useEffect, useState } from "react";
 import { getApi } from "../src/services/apiServices";
@@ -9,8 +9,7 @@ const CategoryScreen = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     fetchCategories()
   }, []);
@@ -21,7 +20,7 @@ const CategoryScreen = () => {
       const data = await getApi("category_repository.json");
       setCategoriesData(data?.categories)
     } catch (err) {
-      setError(err.message || "Failed to fetch data");
+      console.log("error", err.message)
     } finally {
       setLoading(false);
     }
@@ -40,6 +39,7 @@ const CategoryScreen = () => {
 
     return (
       <View style={styles.categoryContainer}>
+
         <TouchableOpacity
           style={styles.categoryHeader}
           onPress={() => toggleExpand(item.category_id)}
@@ -61,6 +61,7 @@ const CategoryScreen = () => {
             ))}
           </View>
         )}
+
       </View>
     );
   };
@@ -69,14 +70,20 @@ const CategoryScreen = () => {
 
 
     <View style={styles.screen}>
-      <BackHeader />
+      {loading ?
+        <ActivityIndicator size="large" color="#0000ff" />
+        :
+        <>
+          <BackHeader />
 
-      <FlatList
-        data={categoriesData}
-        keyExtractor={(item) => item.category_id}
-        style={{marginTop:10}}
-        renderItem={renderCategory}
-      />
+          <FlatList
+            data={categoriesData}
+            keyExtractor={(item) => item.category_id}
+            style={{ marginTop: 10 }}
+            renderItem={renderCategory}
+          />
+        </>
+      }
     </View>
   );
 }
