@@ -104,15 +104,6 @@ const HomeScreen = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.title}
-            // renderItem={({ item }) => (
-            //   <TouchableOpacity
-            //     style={[styles.menuItem, selectedMenu?.title === item.title && styles.selectedMenuItem]}
-            //     onPress={() => setSelectedMenu(item)}
-            //   >
-            //     <Image source={{ uri: item.image }} style={styles.menuImage} />
-            //     <Text style={styles.menuText}>{item.title}</Text>
-            //   </TouchableOpacity>
-            // )}
             renderItem={renderMenuItem}
           />
 
@@ -124,8 +115,6 @@ const HomeScreen = () => {
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => (
                 <View style={styles.sliderContainer}>
-                  {/* <Image source={{ uri: item.image }} style={styles.sliderImage} /> */}
-
                   <OptimizedImage uri={item.image} style={styles.sliderImage} />
                   <View style={styles.sliderTextContainer}>
                     <Text style={styles.sliderTitle}>{item.title}</Text>
@@ -150,8 +139,6 @@ const HomeScreen = () => {
                   style={[styles.menuItemCat, ]}
                 >
                   <OptimizedImage uri={item.image} style={styles.menuImageCat} />
-
-                  {/* <Image source={{ uri: item.image }} style={styles.menuImageCat} /> */}
                   <Text style={styles.menuText}>{item.name}</Text>
                 </TouchableOpacity>
               )}
@@ -169,8 +156,6 @@ const HomeScreen = () => {
                   style={styles.menuItemFab}
                 >
                   <OptimizedImage uri={item.image} style={styles.menuImageFab} />
-
-                  {/* <Image source={{ uri: item.image }} style={styles.menuImageFab} /> */}
                   <Text style={styles.menuTextFab}>{item.name}</Text>
                 </TouchableOpacity>
               )}
@@ -213,15 +198,6 @@ const HomeScreen = () => {
                       backgroundColor: colors.white
                     }}
                   >
-                    {/* <Image
-                      source={{ uri: item.image }}
-                      style={{
-                        width: ITEM_WIDTH - 20,
-                        height: 300,
-                        borderRadius: 10
-                      }}
-                    /> */}
-
                     <OptimizedImage uri={item.image} style={{ width: ITEM_WIDTH - 20, height: 300, borderRadius: 10 }} />
                     <Text
                       style={{
@@ -253,8 +229,6 @@ const HomeScreen = () => {
               <View key={index} style={styles.slide}>
                 <View style={styles.imageContainer}>
                 <OptimizedImage uri={item} style={styles.image} />
-                  
-                  {/* <Image source={{ uri: item }} style={styles.image} /> */}
                 </View>
                 <Text style={styles.title} numberOfLines={2}>{boutiqueCollectionData[index]?.name}</Text>
                 <Text style={styles.titlecta}>{boutiqueCollectionData[index]?.cta}</Text>
@@ -299,9 +273,7 @@ const HomeScreen = () => {
                 <TouchableOpacity
                   style={[styles.menuItemCat, { }]}
                 >
-                  {/* <Image source={{ uri: item.image }} style={styles.menuImageCat} /> */}
                   <OptimizedImage uri={item.image} style={styles.menuImageCat} />
-
                   <View style={styles.rowContainer}>
                     <View style={styles.leftTextContainer}>
                       <Text style={styles.menuText} >{item.name}</Text>
