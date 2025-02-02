@@ -1,9 +1,10 @@
 import { Text, View,StyleSheet} from "react-native";
+import colors from "../constants/colors";
 
-const SaleScreen=()=> {
+const MoreScreen=()=> {
   return (
     <View style={styles.screen}>
-      <Text style={styles.text}>Sale coming soon..</Text>
+      <Text style={styles.text}>Coming Soon..</Text>
     </View>
   );
 }
@@ -12,11 +13,11 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor:'#fff'
+      backgroundColor:colors.white
     },
     text: {
       fontSize: 18,
     },
   });
   
-export default SaleScreen;
+export default MoreScreen;

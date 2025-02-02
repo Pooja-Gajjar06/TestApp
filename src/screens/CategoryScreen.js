@@ -1,8 +1,9 @@
 import { Text, View, StyleSheet, FlatList, TouchableOpacity,ActivityIndicator } from "react-native";
-import BackHeader from "./components/BackHeader";
+import BackHeader from "../components/BackHeader";
 import { useEffect, useState } from "react";
-import { getApi } from "../src/services/apiServices";
+import { getApi } from "../services/apiServices";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from "../constants/colors";
 
 const CategoryScreen = () => {
 
@@ -71,7 +72,7 @@ const CategoryScreen = () => {
 
     <View style={styles.screen}>
       {loading ?
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={colors.indicator} />
         :
         <>
           <BackHeader />
@@ -90,14 +91,14 @@ const CategoryScreen = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: colors.white
   },
   text: {
     fontSize: 18,
   },
   categoryContainer: {
     marginBottom: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.background,
     borderRadius: 12,
     padding: 12,
     marginHorizontal: 12,
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: colors.sectionText,
   },
   childList: {
     paddingLeft: 16,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   },
   childName: {
     fontSize: 16,
-    color: '#555',
+    color: colors.childName,
     marginBottom: 6,
   },
 });
